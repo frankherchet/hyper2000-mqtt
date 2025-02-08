@@ -157,6 +157,12 @@ async def run(broker=None, port=None, info_only: bool = False, connect: bool = F
                 lambda d, ad: d.name and d.name.lower().startswith(product_class)
             )
 
+    if not device:
+        log.info("No device found with the specified product class. Scanning for all visible devices...")
+        devices = await BleakScanner.discover()
+        for d in devices:
+            log.info(f"Found device: {d.name} ({d.address})")
+
     if device:
         log.info("Found device: " + str(device))
 
