@@ -6,9 +6,9 @@ from paho.mqtt import client as mqtt_client
 import json
 import logging
 import sys
-import getopt
 import os
 import time
+import argparse
 
 FORMAT = '%(asctime)s:%(levelname)s: %(message)s'
 logging.basicConfig(stream=sys.stdout, level="INFO", format=FORMAT)
@@ -131,14 +131,23 @@ async def run(broker=None, port=None, info_only: bool = False, connect: bool = F
     global SF_PRODUCT_ID
     product_class = None
 
+    # HUB1200
     if SF_PRODUCT_ID == '73bkTV':
       product_class = "zenp"
+
+    # HUB2000
     elif SF_PRODUCT_ID == 'A8yh63': 
       product_class = "zenh"
+
+    # AIO2400
     elif SF_PRODUCT_ID == 'yWF7hV':
       product_class = "zenr"
+
+    # HYPER20000
     elif SF_PRODUCT_ID == 'ja72U0ha':
       product_class = "zene"
+
+    # fallback
     else:
       product_class = "zen"
 
@@ -197,37 +206,39 @@ async def run(broker=None, port=None, info_only: bool = False, connect: bool = F
 def main(argv):
     global mqtt_user, mqtt_pwd
     ssid = None
-    mqtt_broker= mqtt_port = None
+    mqtt_broker = mqtt_port = None
     connect = disconnect = info_only = False
-    opts, args = getopt.getopt(argv,"hidb:u:p:w:c")
-    for opt, arg in opts:
-        if opt == '-h':
-            print('solarflow-bt-manager.py [ -i | -d | -c ]')
-            print(' -i\tprint some information about the hub and exit')
-            print(' -d\tdisconnect the hub from Zendure cloud')
-            print(' -b\thostname:port of local MQTT broker')
-            print(' -w\tWiFi SSID the hub should be connected to')
-            print(' -c\tconnect the hub to Zendure cloud')
-            sys.exit()
-        elif opt in ("-i", "--info"):
-            info_only = True
-            disconnect = connect = False
-        elif opt in ("-d", "--disconnect"):
-            disconnect = True
-            connect = False
-        elif opt in ("-w", "--wifi"):
-            ssid = arg
-        elif opt in ("-b", "--mqtt_broker"):
-            parts = arg.split(':')
-            mqtt_broker = parts[0]
-            mqtt_port = int(parts[1]) if len(parts) > 1 else 1883
-        elif opt in ("-u", "--mqtt_user"):
-            mqtt_user = arg
-        elif opt in ("-p", "--mqtt_pwd"):
-            mqtt_pwd = arg
-        elif opt in ("-c", "--connect"):
-            connect = True
-            disconnect = False
+
+    parser = argparse.ArgumentParser(description='Solarflow BT Manager')
+    parser.add_argument('-i', '--info', action='store_true', help='print some information about the hub and exit')
+    parser.add_argument('-d', '--disconnect', action='store_true', help='disconnect the hub from Zendure cloud')
+    parser.add_argument('-b', '--mqtt_broker', type=str, help='hostname:port of local MQTT broker')
+    parser.add_argument('-w', '--wifi', type=str, help='WiFi SSID the hub should be connected to')
+    parser.add_argument('-c', '--connect', action='store_true', help='connect the hub to Zendure cloud')
+    parser.add_argument('-u', '--mqtt_user', type=str, help='MQTT username')
+    parser.add_argument('-p', '--mqtt_pwd', type=str, help='MQTT password')
+
+    args = parser.parse_args(argv)
+
+    if args.info:
+        info_only = True
+        disconnect = connect = False
+    if args.disconnect:
+        disconnect = True
+        connect = False
+    if args.wifi:
+        ssid = args.wifi
+    if args.mqtt_broker:
+        parts = args.mqtt_broker.split(':')
+        mqtt_broker = parts[0]
+        mqtt_port = int(parts[1]) if len(parts) > 1 else 1883
+    if args.mqtt_user:
+        mqtt_user = args.mqtt_user
+    if args.mqtt_pwd:
+        mqtt_pwd = args.mqtt_pwd
+    if args.connect:
+        connect = True
+        disconnect = False
 
     if disconnect:
         if ssid is None:
