@@ -10,14 +10,6 @@ import os
 import time
 import argparse
 
-FORMAT = '%(asctime)s:%(levelname)s: %(message)s'
-logging.basicConfig(stream=sys.stdout, level="INFO", format=FORMAT)
-log = logging.getLogger("")
-
-'''
-Very basic attempt to just report Solarflow Hub's stats to mqtt for local long-term tests
-'''
-
 SF_COMMAND_CHAR = "0000c304-0000-1000-8000-00805f9b34fb"
 SF_NOTIFY_CHAR = "0000c305-0000-1000-8000-00805f9b34fb"
 
@@ -35,6 +27,13 @@ mqtt_pwd = os.environ.get('MQTT_PWD',None)
 mq_client: mqtt_client = None
 bt_client: BleakClient
 
+FORMAT = '%(asctime)s:%(levelname)s: %(message)s'
+logging.basicConfig(level="INFO", format=FORMAT, handlers=[
+    logging.StreamHandler(sys.stdout),
+    logging.FileHandler(os.path.expanduser("~/tmp/solarflow_bt_manager.log"),mode='a')
+])
+log = logging.getLogger("SFBTM")
+
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         log.info("Connected to MQTT Broker!")
@@ -42,7 +41,7 @@ def on_connect(client, userdata, flags, rc):
         log.error("Failed to connect, return code %d\n", rc)
 
 def local_mqtt_connect(broker, port):
-    client = mqtt_client.Client(mqtt_client.CallbackAPIVersion.VERSION1, client_id="solarflow-bt")
+    client = mqtt_client.Client(mqtt_client.CallbackAPIVersion.VERSION2, client_id="solarflow-bt")
     if mqtt_user is not None and mqtt_pwd is not None:
         client.username_pw_set(mqtt_user, mqtt_pwd)
     client.connect(broker,port)
@@ -102,7 +101,7 @@ async def set_IoT_Url(client,broker,port,ssid,deviceid):
 
 def handle_rx(BleakGATTCharacteristic, data: bytearray):
     global mq_client, SF_PRODUCT_ID, SF_DEVICE_ID
-    payload = json.loads(data.decode("utf8"))
+    payload = json.loads(data.decode("utf8", errors='ignore'))
     log.info(payload)
 
     if "method" in payload and payload["method"] == "getInfo-rsp":
