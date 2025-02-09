@@ -26,6 +26,11 @@ WIFI_SSID = os.environ.get('WIFI_SSID',None)
 SF_DEVICE_ID = os.environ.get('SF_DEVICE_ID',None)
 SF_PRODUCT_ID = os.environ.get('SF_PRODUCT_ID','73bkTV')
 GLOBAL_INFO_POLLING_INTERVAL = os.environ.get('GLOBAL_INFO_POLLING_INTERVAL', 60)
+MQTT_GLOBAL = os.environ.get('MQTT_GLOBAL',"mq.zen-iot.com")
+MQTT_EU = os.environ.get('MQTT_EU',"mqtteu.zen-iot.com")
+
+MQTT_REGION_SERVER = MQTT_EU
+
 mqtt_user = os.environ.get('MQTT_USER',None)
 mqtt_pwd = os.environ.get('MQTT_PWD',None)
 mq_client: mqtt_client = None
@@ -182,7 +187,7 @@ async def run(broker=None, port=None, info_only: bool = False, connect: bool = F
                 return
 
             if connect and ssid:
-                await set_IoT_Url(bt_client,"mq.zen-iot.com",1883,ssid,SF_DEVICE_ID)
+                await set_IoT_Url(bt_client,MQTT_REGION_SERVER,1883,ssid,SF_DEVICE_ID)
                 log.info("Setting IoTURL connection parameters - connect")
                 await asyncio.sleep(30)
                 return
@@ -223,6 +228,7 @@ def main(argv):
     parser.add_argument('-c', '--connect', action='store_true', help='connect the hub to Zendure cloud')
     parser.add_argument('-u', '--mqtt_user', type=str, help='MQTT username')
     parser.add_argument('-p', '--mqtt_pwd', type=str, help='MQTT password')
+    parser.add_argument('-g', '--global', type=str, help='Use global MQTT server ({MQTT_GLOBAL}) instead of EU server ({MQTT_EU})')
 
     args = parser.parse_args(argv)
 
