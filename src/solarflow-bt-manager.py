@@ -133,29 +133,20 @@ async def run(broker=None, port=None, info_only: bool = False, connect: bool = F
     global mq_client
     global bt_client
     global SF_PRODUCT_ID
-    product_class = None
 
-    # HUB1200
-    if SF_PRODUCT_ID == '73bkTV':
-      product_class = "zenp"
+    product_classes = {
+        '73bkTV': {'product_class': 'zenp', 'product_name': 'HUB1200'},
+        'A8yh63': {'product_class': 'zenh', 'product_name': 'HUB2000'},
+        'yWF7hV': {'product_class': 'zenr', 'product_name': 'AIO2400'},
+        '8bM93H': {'product_class': 'zenf', 'product_name': 'ACE1500'},
+        'ja72U0ha': {'product_class': 'zene', 'product_name': 'HYPER20000'}
+    }
 
-    # HUB2000
-    elif SF_PRODUCT_ID == 'A8yh63': 
-      product_class = "zenh"
+    product_info = product_classes.get(SF_PRODUCT_ID, {'product_class': 'zen', 'product_name': 'Unknown'})
+    product_class = product_info['product_class']
+    product_name = product_info['product_name']
 
-    # AIO2400
-    elif SF_PRODUCT_ID == 'yWF7hV':
-      product_class = "zenr"
-
-    # HYPER20000
-    elif SF_PRODUCT_ID == 'ja72U0ha':
-      product_class = "zene"
-
-    # fallback
-    else:
-      product_class = "zen"
-
-    log.info("scan for: " + str(product_class))
+    log.info(f"scan for {product_name}: {product_class}" )
 
     device = await BleakScanner.find_device_by_filter(
                 lambda d, ad: d.name and d.name.lower().startswith(product_class)
