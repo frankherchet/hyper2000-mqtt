@@ -24,11 +24,10 @@ SF_NOTIFY_CHAR = "0000c305-0000-1000-8000-00805f9b34fb"
 WIFI_PWD = os.environ.get('WIFI_PWD',None)
 WIFI_SSID = os.environ.get('WIFI_SSID',None)
 SF_DEVICE_ID = os.environ.get('SF_DEVICE_ID',None)
-SF_PRODUCT_ID = os.environ.get('SF_PRODUCT_ID','73bkTV')
+SF_PRODUCT_ID = os.environ.get('SF_PRODUCT_ID','ja72U0ha')
 GLOBAL_INFO_POLLING_INTERVAL = os.environ.get('GLOBAL_INFO_POLLING_INTERVAL', 60)
 MQTT_GLOBAL = os.environ.get('MQTT_GLOBAL',"mq.zen-iot.com")
 MQTT_EU = os.environ.get('MQTT_EU',"mqtteu.zen-iot.com")
-
 MQTT_REGION_SERVER = MQTT_EU
 
 mqtt_user = os.environ.get('MQTT_USER',None)
