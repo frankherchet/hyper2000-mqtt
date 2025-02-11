@@ -1,0 +1,487 @@
+# Include this file in your configuration.yaml
+# e.g. mqtt: !include mqtt.yaml
+#
+#
+# replace the following with your own values
+# <DEVICE_SN>: your device unique serial number
+# gDa3tb: your device topic
+# <DEVICE_ID>: your device id
+# <BATTERY_1_SN>: your battery 1 serial number
+# <BATTERY_2_SN>: your battery 2 serial number
+
+sensor:
+    - name: "Hyper 2000"
+      unique_id: "<DEVICE_ID>hubState"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.hubState | int }}"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Solar Input Power"
+      unique_id: "<DEVICE_ID>solarInputPower"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      unit_of_measurement: "W"
+      device_class: "power"
+      value_template: "{{ value_json.properties.solarInputPower | int }}"
+      state_class: "measurement"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+      
+    - name: "Pack Input Power"
+      unique_id: "<DEVICE_ID>packInputPower"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      unit_of_measurement: "W"
+      device_class: "power"
+      value_template: "{{value_json.properties.packInputPower | int}}"
+      state_class: "measurement"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+      
+    - name: "Output Pack Power"
+      unique_id: "<DEVICE_ID>outputPackPower"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      unit_of_measurement: "W"
+      device_class: "power"
+      value_template: "{{value_json.properties.outputPackPower | int}}"
+      state_class: "measurement"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+      
+    - name: "Output Home Power"
+      unique_id: "<DEVICE_ID>outputHomePower"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      unit_of_measurement: "W"
+      device_class: "power"
+      value_template: "{{value_json.properties.outputHomePower | int}}"
+      state_class: "measurement"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+      
+    - name: "Output Limit"
+      unique_id: "<DEVICE_ID>outputLimit"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.outputLimit | int }}"
+      unit_of_measurement: "W"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+    
+    - name: "Input Limit"
+      unique_id: "<DEVICE_ID>inputLimit"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.inputLimit | int }}"
+      unit_of_measurement: "W"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+    
+    - name: "Remain Out Time"
+      unique_id: "<DEVICE_ID>remainOutTime"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.remainOutTime | int }}"
+      device_class: "duration"
+      unit_of_measurement: "min"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+    
+    - name: "Remain Input Time"
+      unique_id: "<DEVICE_ID>remainInputTime"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.remainInputTime | int }}"
+      device_class: "duration"
+      unit_of_measurement: "min"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+    
+    - name: "Pack State"
+      unique_id: "<DEVICE_ID>packState"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.packState | int }}"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+    
+    - name: "Pack Num"
+      unique_id: "<DEVICE_ID>packNum"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.packNum | int }}"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+    
+    - name: "Electric Level"
+      unique_id: "<DEVICE_ID>electricLevel"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      unit_of_measurement: "%"
+      device_class: "battery"
+      value_template: "{{ value_json.properties.electricLevel | int }}"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+    
+    - name: "SOC Set"
+      unique_id: "<DEVICE_ID>socSet"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.properties.socSet | int / 10 }}"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+        
+    - name: "Inverse Max Power"
+      unique_id: "<DEVICE_ID>inverseMaxPower"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.inverseMaxPower | int }}"
+      unit_of_measurement: "W"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+      
+    - name: "WiFi State"
+      unique_id: "<DEVICE_ID>wifiState"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.properties.wifiState | is_defined) %}
+          {{ value_json.properties.wifiState | abs() }}
+        {% endif %}
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+    
+
+    - name: "AC Mode"
+      unique_id: "<DEVICE_ID>acMode‚"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.properties.acMode | is_defined) %}
+          {{ value_json.properties.acMode | abs() }}
+        {% endif %}
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Solar Power 1"
+      unique_id: "<DEVICE_ID>solarPower1"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if states('sensor.solarflow_solar_power_1') not in ['unknown'] %}
+          {{ int(value_json.properties.solarPower1, 0) }}
+        {% else %}
+          {{ int(0) }}
+        {% endif %}
+      unit_of_measurement: "W"
+      device_class: "power"
+      state_class: "measurement"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Solar Power 2"
+      unique_id: "<DEVICE_ID>solarPower2"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if states('sensor.solarflow_solar_power_2') not in ['unknown'] %}
+          {{ int(value_json.properties.solarPower2, 0) }}
+        {% else %}
+          {{ int(0) }}
+        {% endif %}
+      unit_of_measurement: "W"
+      device_class: "power"
+      state_class: "measurement"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Pass Mode"
+      unique_id: "<DEVICE_ID>passMode"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: "{{ value_json.properties.passMode | int }}"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Batterie 1 maxTemp"
+      unique_id: "<DEVICE_ID>Batterie1maxTemp"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.packData | is_defined) %}
+          {% for i in value_json.packData %}
+            {% if i.sn == "<BATTERY_1_SN>" %}
+              {{ (i.maxTemp | float / 100) | round(2) }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      unit_of_measurement: "°C"
+      device_class: "temperature"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Batterie 1 maxVol"
+      unique_id: "<DEVICE_ID>Batterie1maxVol"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.packData | is_defined) %}
+          {% for i in value_json.packData %}
+            {% if i.sn == "<BATTERY_1_SN>" %}
+              {{ i.maxVol | float / 100 }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      unit_of_measurement: "V"
+      device_class: "voltage"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Batterie 1 minVol"
+      unique_id: "<DEVICE_ID>Batterie1minVol"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.packData | is_defined) %}
+          {% for i in value_json.packData %}
+            {% if i.sn == "<BATTERY_1_SN>" %}
+              {{ i.minVol | float / 100 }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      unit_of_measurement: "V"
+      device_class: "voltage"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Batterie 1 socLevel"
+      unique_id: "<DEVICE_ID>Batterie1socLevel"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.packData | is_defined) %}
+          {% for i in value_json.packData %}
+            {% if i.sn == "<BATTERY_1_SN>" %}
+              {{ i.socLevel | int }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      unit_of_measurement: "%"
+      device_class: "battery"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Batterie 2 maxTemp"
+      unique_id: "<DEVICE_ID>Batterie2maxTemp"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.packData | is_defined) %}
+          {% for i in value_json.packData %}
+            {% if i.sn == "<BATTERY_2_SN>" %}
+              {{ (i.maxTemp | float / 100) | round(2) }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      unit_of_measurement: "°C"
+      device_class: "temperature"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Batterie 2 maxVol"
+      unique_id: "<DEVICE_ID>Batterie2maxVol"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.packData | is_defined) %}
+          {% for i in value_json.packData %}
+            {% if i.sn == "<BATTERY_2_SN>" %}
+              {{ i.maxVol | float / 100 }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      unit_of_measurement: "V"
+      device_class: "voltage"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Batterie 2 minVol"
+      unique_id: "<DEVICE_ID>Batterie2minVol"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.packData | is_defined) %}
+          {% for i in value_json.packData %}
+            {% if i.sn == "<BATTERY_2_SN>" %}
+              {{ i.minVol | float / 100 }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      unit_of_measurement: "V"
+      device_class: "voltage"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+    - name: "Batterie 2 socLevel"
+      unique_id: "<DEVICE_ID>Batterie2socLevel"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if (value_json.packData | is_defined) %}
+          {% for i in value_json.packData %}
+            {% if i.sn == "<BATTERY_2_SN>" %}
+              {{ i.socLevel | int }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      unit_of_measurement: "%"
+      device_class: "battery"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+        
+    - name: "Grid Input Power"
+      unique_id: "<DEVICE_ID>gridInputPower"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if states('sensor.solarflow_grid_input_power') not in ['unknown'] %}
+          {{ int(value_json.properties.gridInputPower, 0) }}
+        {% else %}
+          {{ int(0) }}
+        {% endif %}
+      unit_of_measurement: "W"
+      device_class: "power"
+      state_class: "measurement"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+            
+    - name: "AC Output Power"
+      unique_id: "<DEVICE_ID>acOutputPower"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      value_template: >
+        {% if states('sensor.solarflow_ac_output_power') not in ['unknown'] %}
+          {{ int(value_json.properties.acOutputPower, 0) }}
+        {% else %}
+          {{ int(0) }}
+        {% endif %}
+      unit_of_measurement: "W"
+      device_class: "power"
+      state_class: "measurement"
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"
+
+switch:
+    
+    - unique_id: "<DEVICE_ID>_acSwitch"
+      name: "AC Charging"
+      state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+      command_topic: "iot/gDa3tb/<DEVICE_ID>/properties/write"
+      value_template: "{{ value_json.properties.acMode == 1 }}"
+      payload_on: '{"properties": {"acMode": 1}}'
+      payload_off: '{"properties": {"acMode": 2}}'
+      state_on: true
+      state_off: false
+      optimistic: true
+      retain: true
+      device: 
+        name: "SolarFlow"
+        identifiers: "<DEVICE_SN>"
+        manufacturer: "Zendure"
+        model: "Hyper 2000"      
+  
+number:
+  - unique_id: "<DEVICE_ID>_SetOutputLimit"
+    name: "Set Max Discharging Power"
+    state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+    command_topic: "iot/gDa3tb/<DEVICE_ID>/properties/write"
+    value_template: "{{ value_json.properties.outputLimit | int }}"
+    command_template: '{"properties": {"outputLimit": {{ value | int }}}}'
+    min: 0
+    max: 1200
+    step: 10
+    unit_of_measurement: "W"
+    device:
+      name: "SolarFlow"
+      identifiers: "<DEVICE_SN>"
+      manufacturer: "Zendure"
+      model: "Hyper 2000"
+
+  - unique_id: "<DEVICE_ID>_SetInputLimit"
+    name: "Set Max Charging Power"
+    state_topic: "/gDa3tb/<DEVICE_ID>/properties/report"
+    command_topic: "iot/gDa3tb/<DEVICE_ID>/properties/write"
+    value_template: "{{ value_json.properties.inputLimit | int }}"
+    command_template: '{"properties": {"inputLimit": {{ value | int }}}}'
+    min: 0
+    max: 1200
+    step: 10
+    unit_of_measurement: "W"
+    device:
+      name: "SolarFlow"
+      identifiers: "<DEVICE_SN>"
+      manufacturer: "Zendure"
+      model: "Hyper 2000"
+
