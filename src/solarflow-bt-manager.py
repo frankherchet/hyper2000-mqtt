@@ -98,7 +98,7 @@ async def set_IoT_Url(client,broker,port,ssid,deviceid):
     if mq_client:
         get_all_payload = '{"properties": ["getAll"]}'
         log.info(f"Publishing get all properties to {SF_PRODUCT_ID}/{deviceid}/properties/read")
-        mq_client.publish(f'iot/gDa3tb/{deviceid}/properties/read', get_all_payload, retain=True)
+        mq_client.publish(f'iot/{SF_PRODUCT_ID}/{deviceid}/properties/read', get_all_payload, retain=True)
 
 
 def handle_rx(BleakGATTCharacteristic, data: bytearray):
