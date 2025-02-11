@@ -96,7 +96,9 @@ async def set_IoT_Url(client,broker,port,ssid,deviceid):
         log.exception("Setting WiFi Mode failed")
 
     if mq_client:
-        mq_client.publish(f'iot/{SF_PRODUCT_ID}/{deviceid}/register/replay', reply, retain=True)
+        get_all_payload = '{"properties": ["getAll"]}'
+        log.info(f"Publishing get all properties to {SF_PRODUCT_ID}/{deviceid}/properties/read")
+        mq_client.publish(f'iot/gDa3tb/{deviceid}/properties/read', get_all_payload, retain=True)
 
 
 def handle_rx(BleakGATTCharacteristic, data: bytearray):
@@ -138,7 +140,8 @@ async def run(broker=None, port=None, info_only: bool = False, connect: bool = F
         'A8yh63': {'product_class': 'zenh', 'product_name': 'HUB2000'},
         'yWF7hV': {'product_class': 'zenr', 'product_name': 'AIO2400'},
         '8bM93H': {'product_class': 'zenf', 'product_name': 'ACE1500'},
-        'ja72U0ha': {'product_class': 'zene', 'product_name': 'HYPER20000'}
+        'ja72U0ha': {'product_class': 'zene', 'product_name': 'HYPER20000'},
+        'gDa3tb': {'product_class': 'zene', 'product_name': 'HYPER20000_new'},
     }
 
     product_info = product_classes.get(SF_PRODUCT_ID, {'product_class': 'zen', 'product_name': 'Unknown'})
@@ -217,7 +220,7 @@ def main(argv):
     parser.add_argument('-c', '--connect', action='store_true', help='connect the hub to Zendure cloud')
     parser.add_argument('-u', '--mqtt_user', type=str, help='MQTT username')
     parser.add_argument('-p', '--mqtt_pwd', type=str, help='MQTT password')
-    parser.add_argument('-g', '--global', type=str, help='Use global MQTT server ({MQTT_GLOBAL}) instead of EU server ({MQTT_EU})')
+    parser.add_argument('-g', '--use_global', type=str, help='Use global MQTT server ({MQTT_GLOBAL}) instead of EU server ({MQTT_EU})')
 
     args = parser.parse_args(argv)
 
@@ -240,6 +243,8 @@ def main(argv):
     if args.connect:
         connect = True
         disconnect = False
+    if args.use_global:
+        MQTT_REGION_SERVER = MQTT_GLOBAL
 
     if disconnect:
         if ssid is None:

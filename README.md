@@ -162,6 +162,20 @@ $ python3 solarflow-bt-manager.py -c -w <WiFi SSID>
 
 ## Use Cases <a name="usecase"></a>
 
+### writable topics
+iot/gDa3tb/eqY3JSJ1/properties/write
+
+{
+  "properties":
+    {"acMode": 1}
+}
+
+| property | description | Column 3 |
+|----------|----------|----------|
+| acMode    | 2: discharging, 1: charging   | Cell 3   |
+| Row 2    | Cell 5   | Cell 6   |
+| Row 3    | Cell 8   | Cell 9   |
+
 ### Dynamic Limiting
 
 ### Charting
