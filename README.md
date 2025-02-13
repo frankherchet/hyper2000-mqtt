@@ -35,7 +35,7 @@ You will need a Bluetooth LE capable system with Python 3. Linux and OSX works. 
 The script is searching for a HYPER2000 with a Bluetooth name that starts with "zene". 
 
 ### Getting Basic Information
-To get basic information about the HYPER2000 (without performing any changes) run the script with the -i option only:
+To get basic information about the HYPER2000 (without performing any changes) run the script with the `-i` option only:
 
 ```
 $ python3 solarflow-bt-manager.py -i
