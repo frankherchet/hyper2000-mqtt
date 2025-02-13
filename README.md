@@ -14,6 +14,8 @@ This little tool is able to disconnect / connect your HYPER2000 from ZENDURE clo
 
 ## Supported Devices <a name="what"></a>
 - Hyper2000 (SF_PRODUCT_ID=ja72U0ha _default_)
+- Hyper2000 (new product id) (SF_PRODUCT_ID=gDa3tb )
+
 
 ## Features <a name="features"></a>
 Currently you can:
