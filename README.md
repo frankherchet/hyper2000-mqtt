@@ -130,7 +130,7 @@ Topic: /gDa3tb/<deviceId>/time-sync QoS: 0
 }
 ```
 #### Get all properties
-No publish the following MQTT message. Afterwards the HYPER2000 will start updating the topics:
+Now publish the following MQTT message. Afterwards the HYPER2000 will start updating the topics:
 
 ```
 iot/gDa3tb/<deviceId>/properties/read
