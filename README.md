@@ -88,18 +88,21 @@ $ python3 solarflow-bt-manager.py -d -w SuperWiFi -b 192.168.1.245
 This will - if successful - tell the HYPER2000 to disconnect and reconnect the WiFi and then start sendin data to your local MQTT broker. 
 
 ### Authorize HYPER2000 to connect to your local MQTT-broker
-
-As all ZENDURE device, it will connect using a auto generated user_name and password. Thanksfully it was not that hard to get the used user_name and password.
+As all ZENDURE devices, it will connect using a auto generated user_name and password. Thanksfully it was not that hard to get the used user_name and password.
 
 I'm currently using the latest mosquitto docker image:
 ```
 mosquitto version 2.0.20 starting
 ```
-mosquitto has support for anonymous logins, but not any user_name and password. If the client is sending a user_name and password, it must be part of the password file. You can't ignore it.
+mosquitto has support for anonymous logins, but not any user_name and password. If the client is sending a user_name and password, it must be part of the password file. You can't ignore it. The error will look like this:
+
+```
+1739126399: Sending CONNACK to <SF_DEVICE_ID> (0, 5)
+1739126399: Client <SF_DEVICE_ID> disconnected, not authorised.
+```
 
 #### Get HYPER2000 user_name and password
-
-One way to get the necessary credentials is tcpdump:
+One way to get the necessary credentials is running tcpdump on the machine where you're running your MQTT-broker:
 
 ```
 sudo tcpdump -i eth0 src host <IP_ADDRESS_HYPER2K> -w capture.pcap
@@ -111,10 +114,67 @@ Maybe the easiest way is to generate the used password out of your DEVICE_ID, th
 echo -n <SF_DEVICE_ID> | md5sum | awk '{print toupper($1)}' | cut -c9-24
 ```
 #### Add user to mosquitto
-
+No add those credentials to mosquitto
 ```
 sudo mosquitto_passwd <path_to_password_file> <SF_DEVICE_ID>
 ```
+
+You should see now some time-sync topics:
+
+```
+Topic: /gDa3tb/<deviceId>/time-sync QoS: 0
+{
+  "messageId": 7297,
+  "deviceId": "<deviceId>",
+  "timestamp": 1739183690
+}
+```
+#### Get all properties
+No publish the following MQTT message. Afterwards the HYPER2000 will start updating the topics:
+
+```
+iot/gDa3tb/<deviceId>/properties/read
+{
+"properties": ["getAll"]
+}
+```
+
+## Basic MQTT communication
+To send MQTT commands, use the following topics:
+
+### READ:
+```
+iot/gDa3tb/<deviceId>/properties/read
+```
+response:
+```
+/gDa3tb/<deviceId>/properties/read/reply
+```
+
+### WRITE:
+```
+iot/gDa3tb/<deviceId>/properties/write
+```
+response:
+```
+/gDa3tb/<deviceId>/properties/write/reply
+```
+
+### Updates on change
+Automatic updates will come over a different topics:
+```
+/gDa3tb/<deviceId>/properties/report
+```
+
+To update all properties, publish the following message:
+```
+iot/gDa3tb/<deviceId>/properties/read
+{
+"properties": ["getAll"]
+}
+```
+
+
 
 ### Reconnecting HYPER2000 to the cloud
 Yoy can reconnect to Zendure's cloud again. This might be necessary to get firmware updates. The process is similar to the disconnect steps:
