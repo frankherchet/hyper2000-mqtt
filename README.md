@@ -20,7 +20,7 @@ Currently you can:
 - connect to the HYPER2000 by using a BTLE (Bluetooth Low Energy) connection
 - retrieve system information (Device ID, Serial No., Battery Pack information, general settings, ...)
 - disconnect the HYPER2000 from Zendure's cloud broker and connect it to a local one (offline mode)
-- reconnect the hub to Zendure's cloud broker
+- reconnect to Zendure's cloud broker (GLOBAL and EU)
 
 ## Why disconnect your SF Hub from the cloud? <a name="why"></a>
 
