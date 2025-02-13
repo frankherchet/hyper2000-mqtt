@@ -6,11 +6,23 @@ This little tool is able to disconnect / connect your HYPER2000 from ZENDURE clo
 > [!NOTE]
 >
 > Please note that this is work in progress. Completely use at you own risk.
+## Table of Contents
 
+1. [Supported Devices](#what)
 1. [Features](#features)
-1. [Why disconnect your Solarflow Hub](#why)
+1. [Why disconnect your SF Hub from the cloud?](#why)
 1. [How to use](#howto)
-1. [Use Cases](#usecase)
+  - [Getting Basic Information](#getting-basic-information)
+  - [Disconnecting the HYPER2000 from the cloud](#disconnecting-the-hyper2000-from-the-cloud)
+  - [Authorize HYPER2000 to connect to your local MQTT-broker](#authorize-hyper2000-to-connect-to-your-local-mqtt-broker)
+    - [Get HYPER2000 user_name and password](#get-hyper2000-user_name-and-password)
+    - [Add user to mosquitto](#add-user-to-mosquitto)
+    - [Get all properties](#get-all-properties)
+  - [Basic MQTT communication](#basic-mqtt-communication)
+    - [READ](#read)
+    - [WRITE](#write)
+    - [Updates on change](#updates-on-change)
+  - [Reconnecting HYPER2000 to the cloud](#reconnecting-hyper2000-to-the-cloud)
 
 ## Supported Devices <a name="what"></a>
 - Hyper2000 (SF_PRODUCT_ID=ja72U0ha _default_)
