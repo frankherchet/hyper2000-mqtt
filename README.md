@@ -1,4 +1,4 @@
-# HYPER2000 Cloud unchained
+# HYPER2000 NoCloud
 This little tool is able to disconnect / connect your HYPER2000 from ZENDURE cloud. All states and the full controll will be available through a local MQTT-broker.
 
 
