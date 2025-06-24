@@ -78,6 +78,7 @@
 
 | Attribute   | Writable | Description                                  |
 |-------------|----------|----------------------------------------------|
+| sn          | No       | Serial number                                |
 | power       | No       | Battery pack power in W                      |
 | socLevel    | No       | State of charge level (%)                    |
 | state       | No       | Battery pack state (0=Standby, 1=Input, 2=Output) |
