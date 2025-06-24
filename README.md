@@ -23,6 +23,9 @@ This little tool is able to disconnect / connect your HYPER2000 from ZENDURE clo
     - [WRITE](#write)
     - [Updates on change](#updates-on-change)
   - [Reconnecting HYPER2000 to the cloud](#reconnecting-hyper2000-to-the-cloud)
+  - [List of Available MQTT Entities](#list-of-available-mqtt-entities)
+    - [From HYPER2000](#from-hyper2000)
+    - [From Each Battery Pack](#from-each-battery-pack)
 
 ## Supported Devices <a name="what"></a>
 - Hyper2000 (SF_PRODUCT_ID=ja72U0ha _default_)
