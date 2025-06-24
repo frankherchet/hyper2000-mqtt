@@ -30,7 +30,7 @@
 | gridReverse           | Yes      | Grid reverse mode (0=Auto, 1=On, 2=Off)                            |
 | gridStandard          | Yes/No   | Grid standard?                                                     |
 | heatState             | Yes/No   | Current heating state?                                             |
-| hubState              | No       | Hub state                                                          |
+| hubState              | No       | Hub state (0=stop output standby, 1=stop output and shut down)     |
 | hyperTmp              | No       | Device temperature ((t - 2731) / 10)                               |
 | inputLimit            | Yes      | Input power limit from the grid                                    |
 | inputMode             | Yes/No   | Input Mode?                                                        |
